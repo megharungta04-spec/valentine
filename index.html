@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Valentine 💖</title>
+<title>Will You Be My Valentine? 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -25,13 +27,14 @@ body {
   background: rgba(255,255,255,0.95);
   padding: 28px;
   border-radius: 22px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   max-width: 420px;
   width: 100%;
 }
 
 h1 {
   color: #ff3366;
+  margin-bottom: 10px;
   font-size: clamp(24px, 5vw, 32px);
 }
 
@@ -47,15 +50,22 @@ p {
 
 button {
   padding: 12px 22px;
-  font-size: 17px;
+  font-size: clamp(16px, 4vw, 18px);
   border: none;
   border-radius: 30px;
   cursor: pointer;
   margin: 8px;
 }
 
-#yes { background: #ff3366; color: white; }
-#no { background: #ccc; position: absolute; }
+#yes {
+  background: #ff3366;
+  color: white;
+}
+
+#no {
+  background: #ccc;
+  position: absolute;
+}
 
 .heart {
   position: fixed;
@@ -69,44 +79,24 @@ button {
   to { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* Gallery */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.gallery img {
-  width: 100%;
-  border-radius: 12px;
-}
-
-/* Fireworks */
-.firework {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: gold;
-  border-radius: 50%;
-  animation: explode 1s linear infinite;
-}
-
-@keyframes explode {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(5); opacity: 0; }
+/* Laptop polish */
+@media (min-width: 768px) {
+  .container {
+    max-width: 460px;
+    padding: 36px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 CUSTOM SONG (replace with your own mp3 link if you want) -->
+<!-- Background music -->
 <audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container" id="main">
+<div class="container">
   <h1>Hey ❤️</h1>
   <p>Will you be my Valentine? 💕</p>
 
@@ -117,40 +107,25 @@ button {
 </div>
 
 <script>
+function yes() {
+  document.body.innerHTML = `
+    <div class="container">
+      <h1>YAYYYY 🥰💖</h1>
+      <p>You just made my day 🌹</p>
+      <p>I promise lots of love, smiles, and happiness 💕</p>
+    </div>
+  `;
+}
+
 function moveNo() {
   const btn = document.getElementById("no");
   const parent = btn.parentElement;
+
   const maxX = parent.offsetWidth - btn.offsetWidth;
   const maxY = parent.offsetHeight - btn.offsetHeight;
+
   btn.style.left = Math.random() * maxX + "px";
   btn.style.top = Math.random() * maxY + "px";
-}
-
-function yes() {
-  fireworks();
-  document.getElementById("main").innerHTML = `
-    <h1>YAYYYY 🥰💖</h1>
-    <p>You said YES! 🌹</p>
-    <p>Here are our memories 💕</p>
-
-    <div class="gallery">
-      <img src="https://picsum.photos/300?1">
-      <img src="https://picsum.photos/300?2">
-      <img src="https://picsum.photos/300?3">
-      <img src="https://picsum.photos/300?4">
-    </div>
-
-    <br>
-    <button onclick="forever()">Forever? 💍</button>
-  `;
-}
-
-function forever() {
-  document.getElementById("main").innerHTML = `
-    <h1>Forever & Always 💍❤️</h1>
-    <p>No matter what, I choose you.</p>
-    <p>Today. Tomorrow. Forever. 🥰</p>
-  `;
 }
 
 // Floating hearts
@@ -161,20 +136,9 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = Math.random() * 20 + 16 + "px";
   document.body.appendChild(heart);
+
   setTimeout(() => heart.remove(), 6000);
 }, 300);
-
-// Fireworks
-function fireworks() {
-  setInterval(() => {
-    const fw = document.createElement("div");
-    fw.className = "firework";
-    fw.style.left = Math.random() * 100 + "vw";
-    fw.style.top = Math.random() * 100 + "vh";
-    document.body.appendChild(fw);
-    setTimeout(() => fw.remove(), 1000);
-  }, 150);
-}
 </script>
 
 </body>
