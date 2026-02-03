@@ -6,41 +6,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #ff758c, #ff7eb3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
+  padding: 20px;
 }
 
 .container {
   text-align: center;
   background: rgba(255,255,255,0.95);
-  padding: 30px;
-  border-radius: 20px;
+  padding: 28px;
+  border-radius: 22px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  max-width: 420px;
+  width: 100%;
 }
 
 h1 {
   color: #ff3366;
   margin-bottom: 10px;
+  font-size: clamp(24px, 5vw, 32px);
 }
 
 p {
-  font-size: 18px;
+  font-size: clamp(16px, 4vw, 18px);
+}
+
+.buttons {
+  position: relative;
+  height: 120px;
+  margin-top: 20px;
 }
 
 button {
-  padding: 12px 25px;
-  font-size: 18px;
+  padding: 12px 22px;
+  font-size: clamp(16px, 4vw, 18px);
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  margin: 10px;
+  margin: 8px;
 }
 
 #yes {
@@ -56,19 +70,28 @@ button {
 .heart {
   position: fixed;
   bottom: -10px;
-  font-size: 20px;
   animation: float 6s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes float {
   from { transform: translateY(0); opacity: 1; }
   to { transform: translateY(-100vh); opacity: 0; }
 }
+
+/* Laptop polish */
+@media (min-width: 768px) {
+  .container {
+    max-width: 460px;
+    padding: 36px;
+  }
+}
 </style>
 </head>
 
 <body>
 
+<!-- Background music -->
 <audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
@@ -76,8 +99,11 @@ button {
 <div class="container">
   <h1>Hey ❤️</h1>
   <p>Will you be my Valentine? 💕</p>
-  <button id="yes" onclick="yes()">Yes 💖</button>
-  <button id="no" onmouseover="moveNo()">No 🙃</button>
+
+  <div class="buttons">
+    <button id="yes" onclick="yes()">Yes 💖</button>
+    <button id="no" onmouseover="moveNo()" ontouchstart="moveNo()">No 🙃</button>
+  </div>
 </div>
 
 <script>
@@ -85,16 +111,21 @@ function yes() {
   document.body.innerHTML = `
     <div class="container">
       <h1>YAYYYY 🥰💖</h1>
-      <p>You just made my day! 🌹</p>
-      <p>I love you endlessly 💕</p>
+      <p>You just made my day 🌹</p>
+      <p>I promise lots of love, smiles, and happiness 💕</p>
     </div>
   `;
 }
 
 function moveNo() {
   const btn = document.getElementById("no");
-  btn.style.left = Math.random() * 80 + "vw";
-  btn.style.top = Math.random() * 80 + "vh";
+  const parent = btn.parentElement;
+
+  const maxX = parent.offsetWidth - btn.offsetWidth;
+  const maxY = parent.offsetHeight - btn.offsetHeight;
+
+  btn.style.left = Math.random() * maxX + "px";
+  btn.style.top = Math.random() * maxY + "px";
 }
 
 // Floating hearts
@@ -103,8 +134,9 @@ setInterval(() => {
   heart.className = "heart";
   heart.innerHTML = "❤️";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  heart.style.fontSize = Math.random() * 20 + 16 + "px";
   document.body.appendChild(heart);
+
   setTimeout(() => heart.remove(), 6000);
 }, 300);
 </script>
