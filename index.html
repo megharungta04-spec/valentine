@@ -1,40 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>For You ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background: linear-gradient(#ff758c, #ff7eb3);
-      font-family: Arial, sans-serif;
-      text-align: center;
-      color: white;
-      padding: 40px 20px;
-    }
-    button {
-      background: white;
-      color: #ff4d6d;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      font-size: 18px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine? 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 {
+  color: #ff3366;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#yes {
+  background: #ff3366;
+  color: white;
+}
+
+#no {
+  background: #ccc;
+  position: absolute;
+}
+
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
 </head>
+
 <body>
 
-<h1>Hi ❤️</h1>
-<p>Will you be my Valentine?</p>
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
 
-<button onclick="yes()">Yes</button>
+<div class="container">
+  <h1>Hey ❤️</h1>
+  <p>Will you be my Valentine? 💕</p>
+  <button id="yes" onclick="yes()">Yes 💖</button>
+  <button id="no" onmouseover="moveNo()">No 🙃</button>
+</div>
 
 <script>
 function yes() {
-  document.body.innerHTML =
-    "<h1>Yay! ❤️🥰</h1><p>You just made my day!</p>";
+  document.body.innerHTML = `
+    <div class="container">
+      <h1>YAYYYY 🥰💖</h1>
+      <p>You just made my day! 🌹</p>
+      <p>I love you endlessly 💕</p>
+    </div>
+  `;
 }
+
+function moveNo() {
+  const btn = document.getElementById("no");
+  btn.style.left = Math.random() * 80 + "vw";
+  btn.style.top = Math.random() * 80 + "vh";
+}
+
+// Floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 300);
 </script>
 
 </body>
