@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Will You Be My Valentine? 💖</title>
+<title>My Valentine 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -27,19 +25,20 @@ body {
   background: rgba(255,255,255,0.95);
   padding: 28px;
   border-radius: 22px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   max-width: 420px;
   width: 100%;
 }
 
 h1 {
   color: #ff3366;
-  margin-bottom: 10px;
   font-size: clamp(24px, 5vw, 32px);
+  margin-bottom: 10px;
 }
 
 p {
   font-size: clamp(16px, 4vw, 18px);
+  line-height: 1.6;
 }
 
 .buttons {
@@ -50,22 +49,15 @@ p {
 
 button {
   padding: 12px 22px;
-  font-size: clamp(16px, 4vw, 18px);
+  font-size: 17px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
   margin: 8px;
 }
 
-#yes {
-  background: #ff3366;
-  color: white;
-}
-
-#no {
-  background: #ccc;
-  position: absolute;
-}
+#yes { background: #ff3366; color: white; }
+#no { background: #ccc; position: absolute; }
 
 .heart {
   position: fixed;
@@ -79,24 +71,44 @@ button {
   to { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* Laptop polish */
-@media (min-width: 768px) {
-  .container {
-    max-width: 460px;
-    padding: 36px;
-  }
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Fireworks */
+.firework {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: gold;
+  border-radius: 50%;
+  animation: explode 1s linear infinite;
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(5); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background music -->
+<!-- 🎵 Background Music (you can replace this link with your song) -->
 <audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
+<div class="container" id="main">
   <h1>Hey ❤️</h1>
   <p>Will you be my Valentine? 💕</p>
 
@@ -107,37 +119,52 @@ button {
 </div>
 
 <script>
-function yes() {
-  document.body.innerHTML = `
-    <div class="container">
-      <h1>YAYYYY 🥰💖</h1>
-      <p>You just made my day 🌹</p>
-      <p>Jaan, you are my favorite feeling, my safe place, and my happiest choice.
-With you, even the simplest moments feel special. </p>
-
-<p>I don’t know what the future holds, but I know one thing for sure —
-I want to face it with you, hand in hand. </p>
-
-<p>Always yours,
-Megha ❤️
-
-</p>
-    </div>
-  `;
-}
-
 function moveNo() {
   const btn = document.getElementById("no");
   const parent = btn.parentElement;
-
   const maxX = parent.offsetWidth - btn.offsetWidth;
   const maxY = parent.offsetHeight - btn.offsetHeight;
-
   btn.style.left = Math.random() * maxX + "px";
   btn.style.top = Math.random() * maxY + "px";
 }
 
-// Floating hearts
+function yes() {
+  fireworks();
+  document.getElementById("main").innerHTML = `
+    <h1>YAYYYY 🥰💖</h1>
+    <p>You said YES! 🌹</p>
+    <p>Here are our memories 💕</p>
+
+    <div class="gallery">
+      <img src="https://picsum.photos/300?1">
+      <img src="https://picsum.photos/300?2">
+      <img src="https://picsum.photos/300?3">
+      <img src="https://picsum.photos/300?4">
+    </div>
+
+    <br>
+    <button onclick="forever()">Forever? 💍</button>
+  `;
+}
+
+function forever() {
+  document.getElementById("main").innerHTML = `
+    <h1>Forever & Always 💍</h1>
+
+    <p>
+      Piyush, you are my favorite feeling, my safe place, and my happiest choice.<br><br>
+      With you, even the simplest moments feel special.<br><br>
+
+      I don’t know what the future holds, but I know one thing for sure —<br>
+      I want to face it with you, hand in hand.<br><br>
+
+      Always yours,<br>
+      <strong>Megha ❤️</strong>
+    </p>
+  `;
+}
+
+/* Floating hearts */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -145,9 +172,20 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = Math.random() * 20 + 16 + "px";
   document.body.appendChild(heart);
-
   setTimeout(() => heart.remove(), 6000);
 }, 300);
+
+/* Fireworks */
+function fireworks() {
+  setInterval(() => {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * 100 + "vw";
+    fw.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(fw);
+    setTimeout(() => fw.remove(), 1000);
+  }, 150);
+}
 </script>
 
 </body>
